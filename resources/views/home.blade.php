@@ -10,11 +10,18 @@
         <div class="col-md-10 col-md-offset-1">
             <form class="" action="{{ url('create') }}" method="post">
               {{ csrf_field() }}
-              <div class="input-group">
-                <input type="text" name="task" class="form-control" placeholder="Describe tu tarea">
-                <span class="input-group-btn">
-                  <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary">
-                </span>
+              <div class="form-group{{ $errors->has('task') ? ' has-error' : '' }}">
+                <div class="input-group">
+                  <input type="text" name="task" class="form-control" placeholder="Describe tu tarea">
+                  <span class="input-group-btn">
+                    <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary">
+                  </span>
+                </div>
+                @if ($errors->has('task'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('task') }}</strong>
+                  </span>
+                @endif
               </div>
             </form>
 

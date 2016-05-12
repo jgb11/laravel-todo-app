@@ -34,11 +34,14 @@ class HomeController extends Controller
 
     public function postCreate(Request $req)
     {
+      $this->validate($req, [
+        'task' => 'required',
+      ]);
       $task = new Task();
       $task->task = $req->task;
       $task->user_id = Auth::user()->id;
       $task->save();
-
+      session()->flash('success', 'Tarea creada correctamente.');
       return redirect('/home');
     }
 
@@ -48,14 +51,14 @@ class HomeController extends Controller
         if($req->newPass === $req->repeatNewPass){
           $user = User::find(Auth::user()->id);
           $user->password = Hash::make($req->newPass);
+          session()->flash('success', 'Se ha modificado la contraseña.');
           $user->save();
         } else {
-          // $req->session->flash('error', 'Las contraseñas nuevas no coinciden.');
+          session()->flash('error', 'Las contraseñas no coinciden.');
         }
       } else {
-        // $req->session->flash('error', 'La contraseña actual no coincide con la del usuario.');
+        session()->flash('error', 'Contraseña incorrecta.');
       }
-
 
       return redirect('/settings');
     }
@@ -65,6 +68,7 @@ class HomeController extends Controller
       $task = Task::find($id);
       if($task->user_id === Auth::user()->id && $task->status === 'Pendiente') {
         $task->status = 'Completada';
+        session()->flash('info', 'Tarea completada.');
         $task->save();
       }
 
@@ -75,7 +79,10 @@ class HomeController extends Controller
     {
       $task = Task::find($id);
       if($task->user_id === Auth::user()->id) {
+        session()->flash('info', 'Tarea eliminada.');
         $task->delete();
+      } else {
+        session()->flash('error', 'No tienes permiso para hacer esto.');
       }
 
       return redirect('/home');
