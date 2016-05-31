@@ -20,15 +20,16 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
-Route::get('done/{id}', 'HomeController@getDone');
-Route::get('delete/{id}', 'HomeController@getDelete');
-Route::get('/settings', 'HomeController@getSettings');
-Route::get('/language/{lang}', function($lang){
+Route::get('home', 'HomeController@index');
+Route::get('done/{id}', 'HomeController@getDone')->where('id', '[0-9]+');
+Route::get('delete/{id}', 'HomeController@getDelete')->where('id', '[0-9]+');
+Route::get('settings', 'HomeController@getSettings');
+Route::get('language/{lang}', function($lang){
   session()->put('lang', $lang);
   return back();
-});
+})
+->where('lang', '[a-z]{2}');
 
 
-Route::post('/create', 'HomeController@postCreate');
-Route::post('/change-pass', 'HomeController@postChangePass');
+Route::post('create', 'HomeController@postCreate');
+Route::post('change-pass', 'HomeController@postChangePass');
