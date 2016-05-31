@@ -12,9 +12,9 @@
               {{ csrf_field() }}
               <div class="form-group{{ $errors->has('task') ? ' has-error' : '' }}">
                 <div class="input-group">
-                  <input type="text" name="task" class="form-control" placeholder="Describe tu tarea">
+                  <input type="text" name="task" class="form-control" placeholder="{{ trans('messages.taskHelp') }}">
                   <span class="input-group-btn">
-                    <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary">
+                    <input type="submit" name="{{ trans('messages.save') }}" value="{{ trans('messages.save') }}" class="btn btn-primary">
                   </span>
                 </div>
                 @if ($errors->has('task'))
@@ -38,7 +38,11 @@
                     {{ $task->task }}
                   </td>
                   <td>
-                    {{ $task->status }}
+                    @if($task->status == 'Pendiente')
+                      {{ trans('messages.todo') }}
+                    @else
+                      {{ trans('messages.done') }}
+                    @endif
                   </td>
                   <td class="text-right">
                     @if($task->status != 'Completada')
@@ -52,7 +56,7 @@
                   </td>
                 </tr>
               @empty
-                <h2>There are no tasks to show...</h2>
+                <h2>{{ trans('messages.noTasks') }}</h2>
               @endforelse
             </table>
             <div class="text-center">

@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  if(session()->has('lang')){
+    App::setLocale(session()->get('lang'));
+  }
+  return view('welcome');
 });
 
 Route::auth();
@@ -21,6 +24,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('done/{id}', 'HomeController@getDone');
 Route::get('delete/{id}', 'HomeController@getDelete');
 Route::get('/settings', 'HomeController@getSettings');
+Route::get('/language/{lang}', function($lang){
+  session()->put('lang', $lang);
+  return back();
+});
 
 
 Route::post('/create', 'HomeController@postCreate');

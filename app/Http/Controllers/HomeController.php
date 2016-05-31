@@ -8,6 +8,7 @@ use App\Task;
 use App\User;
 use Auth;
 use Hash;
+use App;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,10 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      if(session()->has('lang')){
+        App::setLocale(session()->get('lang'));
+      }
+      $this->middleware('auth');
     }
 
     /**
@@ -35,7 +39,7 @@ class HomeController extends Controller
     public function postCreate(Request $req)
     {
       $this->validate($req, [
-        'task' => 'required',
+        'task' => 'required|max:255',
       ]);
       $task = new Task();
       $task->task = $req->task;
@@ -47,6 +51,12 @@ class HomeController extends Controller
 
     public function postChangePass(Request $req)
     {
+      $this->validate($req, [
+        'oldPass' => 'required',
+        'newPass' => 'required|min:6',
+        'repeatNewPass' => 'required|min:6',
+      ]);
+
       if (Hash::check($req->oldPass, Auth::user()->password)) {
         if($req->newPass === $req->repeatNewPass){
           $user = User::find(Auth::user()->id);
