@@ -29,6 +29,10 @@ return [
   'actualPass'     => 'Contraseña actual',
   'newPass'        => 'Contraseña nueva',
   'repeatNewPass'  => 'Repetir contraseña nueva',
-  'changePass'     => 'Cambiar contraseña'
+  'changePass'     => 'Cambiar contraseña',
+  'shareTask'      => 'Compartir tarea',
+  'shareTaskText'  => 'Selecciona el email de tu amigo para compartir la tarea.',
+  'shareText'      => 'Email para compartir tarea',
+  'share'          => 'Compartir'
 ];
 ?>

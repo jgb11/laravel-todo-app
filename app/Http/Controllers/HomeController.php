@@ -42,10 +42,17 @@ class HomeController extends Controller
       $this->validate($req, [
         'task' => 'required|max:255',
       ]);
+      /*
       $task = new Task();
       $task->task = $req->task;
       $task->user_id = Auth::user()->id;
       $task->save();
+      */
+
+      $task = new Task(['task' => $req->task]);
+      $user = User::find(Auth::user()->id);
+      $user->tasks()->save($task);
+
       session()->flash('success', 'Tarea creada correctamente.');
       return redirect('/home');
     }

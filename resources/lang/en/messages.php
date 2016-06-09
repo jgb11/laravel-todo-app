@@ -29,6 +29,10 @@ return [
   'actualPass'     => 'Actual Password',
   'newPass'        => 'New Password',
   'repeatNewPass'  => 'Repeat New Password',
-  'changePass'     => 'Change Password'
+  'changePass'     => 'Change Password',
+  'shareTask'      => 'Share Task',
+  'shareTaskText'  => 'Select your friend\'s email to share your task.',
+  'shareText'      => 'Email to share task',
+  'share'          => 'Share'
 ];
 ?>

@@ -35,7 +35,22 @@
                 <tr>
                 @endif
                   <td class="col-xs-8">
-                    {{ $task->task }}
+                    <a href="#collapseTask{{ $task->id }}" data-toggle="collapse">
+                      {{ $task->task }}
+                    </a>
+
+                    <div class="collapse" id="collapseTask{{ $task->id }}">
+                      <h4>{{ trans('messages.shareTask') }}</h4>
+                      <p>
+                        {{ trans('messages.shareTaskText') }}
+                      </p>
+                      <div class="input-group">
+                        <input type="text" name="task" class="form-control input-sm" placeholder="{{ trans('messages.shareText') }}">
+                        <span class="input-group-btn">
+                          <input type="submit" name="{{ trans('messages.share') }}" value="{{ trans('messages.share') }}" class="btn btn-primary btn-sm">
+                        </span>
+                      </div>
+                    </div>
                   </td>
                   <td>
                     @if($task->status == 'Pendiente')
