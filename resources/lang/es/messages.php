@@ -33,6 +33,8 @@ return [
   'shareTask'      => 'Compartir tarea',
   'shareTaskText'  => 'Selecciona el email de tu amigo para compartir la tarea.',
   'shareText'      => 'Email para compartir tarea',
-  'share'          => 'Compartir'
+  'share'          => 'Compartir',
+  'markComplete'   => 'Marcar como completada',
+  'deleteTask'     => 'Eliminar tarea'
 ];
 ?>

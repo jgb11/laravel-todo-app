@@ -33,6 +33,8 @@ return [
   'shareTask'      => 'Share Task',
   'shareTaskText'  => 'Select your friend\'s email to share your task.',
   'shareText'      => 'Email to share task',
-  'share'          => 'Share'
+  'share'          => 'Share',
+  'markComplete'   => 'Mark as completed',
+  'deleteTask'     => 'Delete Task'
 ];
 ?>

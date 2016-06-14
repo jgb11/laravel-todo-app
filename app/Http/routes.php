@@ -33,3 +33,4 @@ Route::get('language/{lang}', function($lang){
 
 Route::post('create', 'HomeController@postCreate');
 Route::post('change-pass', 'HomeController@postChangePass');
+Route::post('share', 'HomeController@postShare');

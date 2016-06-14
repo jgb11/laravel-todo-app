@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $table = 'tasks';
-    protected $fillable = ['task'];
+    protected $fillable = ['task', 'author_id'];
 
-    public function user()
+    public function users()
     {
-      return $this->belongsTo('App\User');
+      return $this->belongsToMany('App\User');
     }
 }
