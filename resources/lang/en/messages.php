@@ -35,6 +35,8 @@ return [
   'shareText'      => 'Email to share task',
   'share'          => 'Share',
   'markComplete'   => 'Mark as completed',
-  'deleteTask'     => 'Delete Task'
+  'deleteTask'     => 'Delete Task',
+  '404'            => 'Page not fuond.',
+  'text404'        => 'Page not found, go to home page and try again.'
 ];
 ?>

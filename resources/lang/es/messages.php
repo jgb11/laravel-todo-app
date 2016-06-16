@@ -35,6 +35,8 @@ return [
   'shareText'      => 'Email para compartir tarea',
   'share'          => 'Compartir',
   'markComplete'   => 'Marcar como completada',
-  'deleteTask'     => 'Eliminar tarea'
+  'deleteTask'     => 'Eliminar tarea',
+  '404'            => 'Página no encontrada.',
+  'text404'        => 'Página no encontrada, vuelve a la página de inicio y vuelve a intentar realizar la operación.'
 ];
 ?>

@@ -45,6 +45,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+      if($e instanceof ModelNotFoundException)
+      {
+        if($e->getMessage() == 'No query results for model [App\User].')
+        {
+          session()->flash('error', 'Usuario no encontrado.');
+        }
+        else
+        {
+          session()->flash('error', 'Ha ocurrido un error inesperado.');
+        }
+
+        return redirect('home');
+      }
+      return parent::render($request, $e);
     }
 }

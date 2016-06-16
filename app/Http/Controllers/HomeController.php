@@ -20,7 +20,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-      if(session()->has('lang')){
+      if(session()->has('lang'))
+      {
         App::setLocale(session()->get('lang'));
       }
       $this->middleware('auth');
@@ -66,16 +67,22 @@ class HomeController extends Controller
         'repeatNewPass' => 'required|min:6',
       ]);
 
-      if (Hash::check($req->oldPass, Auth::user()->password)) {
-        if($req->newPass === $req->repeatNewPass){
+      if (Hash::check($req->oldPass, Auth::user()->password))
+      {
+        if($req->newPass === $req->repeatNewPass)
+        {
           $user = User::find(Auth::user()->id);
           $user->password = Hash::make($req->newPass);
           session()->flash('success', 'Se ha modificado la contraseña.');
           $user->save();
-        } else {
+        }
+        else
+        {
           session()->flash('error', 'Las contraseñas no coinciden.');
         }
-      } else {
+      }
+      else
+      {
         session()->flash('error', 'Contraseña incorrecta.');
       }
 
@@ -89,7 +96,7 @@ class HomeController extends Controller
       ]);
 
       $user = User::where('email', $req->email)->firstOrFail();
-      $result = TaskUser::where('user_id', $user->id)->where('task_id', $req->task_id)->get();
+      $result = TaskUser::where(['user_id' => $user->id, 'task_id' => $req->task_id])->get();
       if($result->isEmpty())
       {
         $task_user = new TaskUser();
@@ -97,10 +104,11 @@ class HomeController extends Controller
         $task_user->task_id = $req->task_id;
         $task_user->save();
 
-        session()->flash('info', 'Tarea compartida con el usuario '.$req->email.'.');
+        session()->flash('success', 'Tarea compartida con el usuario '.$req->email.'.');
       }
-      else {
-        session()->flash('info', 'Ya se ha compartido la tarea con el usuario  '.$req->email.'.');
+      else
+      {
+        session()->flash('error', 'Ya se ha compartido la tarea con el usuario  '.$req->email.'.');
       }
 
 
@@ -110,7 +118,8 @@ class HomeController extends Controller
     public function getDone($id)
     {
       $task = Task::find($id);
-      if($task->author_id === Auth::user()->id && $task->status === 'Pendiente') {
+      if($task->author_id === Auth::user()->id && $task->status === 'Pendiente')
+      {
         $task->status = 'Completada';
         session()->flash('info', 'Tarea completada.');
         $task->save();
@@ -122,10 +131,13 @@ class HomeController extends Controller
     public function getDelete($id)
     {
       $task = Task::find($id);
-      if($task->author_id === Auth::user()->id) {
+      if($task->author_id === Auth::user()->id)
+      {
         session()->flash('info', 'Tarea eliminada.');
         $task->delete();
-      } else {
+      }
+      else
+      {
         session()->flash('error', 'No tienes permiso para hacer esto.');
       }
 

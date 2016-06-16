@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Home
+  {{ trans('message.home') }}
 @endsection
 
 @section('content')
