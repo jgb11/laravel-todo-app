@@ -55,8 +55,9 @@ class HomeController extends Controller
       $user = User::find(Auth::user()->id);
       $user->tasks()->save($task);
 
-      session()->flash('success', 'Tarea creada correctamente.');
-      return redirect('/home');
+      // session()->flash('success', 'Tarea creada correctamente.');
+      $tasks = User::find(Auth::user()->id)->tasks()->orderBy('created_at', 'desc')->paginate(6);
+      return view('tasks', ['tasks' => $tasks]);
     }
 
     public function postChangePass(Request $req)
@@ -86,7 +87,7 @@ class HomeController extends Controller
         session()->flash('error', 'Contraseña incorrecta.');
       }
 
-      return redirect('/settings');
+      return redirect('settings');
     }
 
     public function postShare(Request $req)
@@ -112,7 +113,7 @@ class HomeController extends Controller
       }
 
 
-      return redirect('/home');
+      return redirect('home');
     }
 
     public function getDone($id)
@@ -121,11 +122,15 @@ class HomeController extends Controller
       if($task->author_id === Auth::user()->id && $task->status === 'Pendiente')
       {
         $task->status = 'Completada';
-        session()->flash('info', 'Tarea completada.');
         $task->save();
+        // session()->flash('info', 'Tarea completada.');
+        $tasks = User::find(Auth::user()->id)->tasks()->orderBy('created_at', 'desc')->paginate(6);
+        return view('tasks', ['tasks' => $tasks]);
       }
-
-      return redirect('/home');
+      else
+      {
+        // session()->flash('error', 'No tienes permisos para realizar esa acción.');
+      }
     }
 
     public function getDelete($id)
@@ -133,15 +138,15 @@ class HomeController extends Controller
       $task = Task::find($id);
       if($task->author_id === Auth::user()->id)
       {
-        session()->flash('info', 'Tarea eliminada.');
         $task->delete();
+        // session()->flash('info', 'Tarea eliminada.');
+        $tasks = User::find(Auth::user()->id)->tasks()->orderBy('created_at', 'desc')->paginate(6);
+        return view('tasks', ['tasks' => $tasks]);
       }
       else
       {
-        session()->flash('error', 'No tienes permiso para hacer esto.');
+        // session()->flash('error', 'No tienes permisos para realizar esa acción.');
       }
-
-      return redirect('/home');
     }
 
     public function getSettings()

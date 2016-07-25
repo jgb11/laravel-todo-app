@@ -8,13 +8,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            <!--
             <form class="" action="{{ url('create') }}" method="post">
               {{ csrf_field() }}
+            -->
               <div class="form-group{{ $errors->has('task') ? ' has-error' : '' }}">
                 <div class="input-group">
-                  <input type="text" name="task" class="form-control" placeholder="{{ trans('messages.taskHelp') }}">
+                  <input type="text" name="task" id="taskText" class="form-control" placeholder="{{ trans('messages.taskHelp') }}">
                   <span class="input-group-btn">
+                    <!--
                     <input type="submit" name="{{ trans('messages.save') }}" value="{{ trans('messages.save') }}" class="btn btn-primary">
+                    -->
+                    <button type="button" name="{{ trans('messages.save') }}" value="{{ trans('messages.save') }}"class="btn btn-primary save">{{ trans('messages.save') }}</button>
                   </span>
                 </div>
                 @if ($errors->has('task'))
@@ -23,11 +28,13 @@
                   </span>
                 @endif
               </div>
+            <!--
             </form>
+            -->
 
             <p>&nbsp;</p>
 
-            <table class="table table-responsive table-striped">
+            <table class="table table-responsive table-striped" id="tasks">
               @forelse($tasks as $task)
                 @if($task->status == 'Completada')
                 <tr class="success">
@@ -35,7 +42,7 @@
                     <i class="fa fa-check" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ trans('messages.done') }}"></i>
                   </td>
                 @else
-                <tr>
+                <tr id="task{{ $task->id }}">
                   <td>
                     <i class="fa fa-clock-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ trans('messages.todo') }}"></i>
                   </td>
@@ -79,13 +86,19 @@
                   <td class="text-right">
                     @if($task->author_id === Auth::user()->id)
                       @if($task->status != 'Completada')
+                      <!--
                       <a href="{{ url('done', [$task->id]) }}" class="btn btn-xs btn-success" title="{{ trans('messages.markComplete') }}">
                         <span class="glyphicon glyphicon-ok"></span>
                       </a>
+                      -->
+                      <button type="button" data-id="{{ $task->id }}" class="btn btn-xs btn-success complete" data-toggle="tooltip" data-placement="top" title="{{ trans('messages.markComplete') }}"><span class="glyphicon glyphicon-ok"></span></button>
                       @endif
+                      <!--
                       <a href="{{ url('delete', [$task->id]) }}" class="btn btn-xs btn-danger" title="{{ trans('messages.deleteTask') }}">
                         <span class="glyphicon glyphicon-trash"></span>
                       </a>
+                      -->
+                      <button type="button" data-id="{{ $task->id }}" class="btn btn-xs btn-danger delete" data-toggle="tooltip" data-placement="top" title="{{ trans('messages.deleteTask') }}"><span class="glyphicon glyphicon-trash"></span></button>
                     @else
                       @if($task->status != 'Completada')
                       <a href="{{ url('done', [$task->id]) }}" class="disabled btn btn-xs btn-success" title="{{ trans('messages.markComplete') }}">
