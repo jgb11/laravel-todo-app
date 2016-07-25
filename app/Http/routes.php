@@ -1,5 +1,5 @@
 <?php
-
+use App\Task;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -30,6 +30,10 @@ Route::get('language/{lang}', function($lang){
 })
 ->where('lang', '[a-z]{2}');
 
+Route::get('api', function(){
+  $tasks = Task::all();
+  return response()->json($tasks);
+});
 
 Route::post('create', 'HomeController@postCreate');
 Route::post('change-pass', 'HomeController@postChangePass');
