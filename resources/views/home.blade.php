@@ -19,7 +19,7 @@
                     <!--
                     <input type="submit" name="{{ trans('messages.save') }}" value="{{ trans('messages.save') }}" class="btn btn-primary">
                     -->
-                    <button type="button" name="{{ trans('messages.save') }}" value="{{ trans('messages.save') }}"class="btn btn-primary save">{{ trans('messages.save') }}</button>
+                    <button type="button" name="{{ trans('messages.save') }}" value="{{ trans('messages.save') }}" class="btn btn-primary save">{{ trans('messages.save') }}</button>
                   </span>
                 </div>
                 @if ($errors->has('task'))
@@ -61,16 +61,23 @@
                     </a>
                     <div class="collapse" id="collapseTask{{ $task->id }}">
                       <h4>{{ trans('messages.shareTask') }}</h4>
+                      <!--
                       <form class="" action="{{ url('share') }}" method="post">
                         {{ csrf_field() }}
-                        <input type="hidden" name="task_id" value="{{ $task->id }}">
+                        <input type="hidden" id="task_id" name="task_id" value="{{ $task->id }}">
+                      -->
                         <div class="input-group">
-                          <input type="text" name="email" class="form-control input-sm" placeholder="{{ trans('messages.shareTaskText') }}">
+                          <input type="text" id="email{{ $task->id }}" name="email" class="form-control input-sm" placeholder="{{ trans('messages.shareTaskText') }}">
                           <span class="input-group-btn">
+                            <!--
                             <input type="submit" name="{{ trans('messages.share') }}" value="{{ trans('messages.share') }}" class="btn btn-primary btn-sm">
+                            -->
+                            <button type="button" name="{{ trans('messages.share') }}" value="{{ trans('messages.share') }}" class="btn btn-primary btn-sm share" data-id="{{ $task->id }}">{{ trans('messages.share') }}</button>
                           </span>
                         </div>
+                      <!--
                       </form>
+                      -->
                     </div>
                     @else
                       {{ $task->task }}

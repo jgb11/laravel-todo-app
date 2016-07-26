@@ -48,11 +48,37 @@ $(function () {
       },
       success: function(data) {
         $(document).find('#tasks').html(data);
-        $('#taskText').val('');
+        $('#taskText').val('').focus();
       },
       error: function() {
         alert('Error');
       }
     });
+  });
+
+  $(document).on('click', '.share', function(){
+    var $taskId = $(this).data('id');
+    var $email = $('#email' + $taskId).val();
+    if($taskId && $email) {
+      $.ajax({
+        url: $urlBase + "share",
+        dataType: 'html',
+        method: 'post',
+        data: {
+          email: $email,
+          task_id: $taskId
+        },
+        success: function(data) {
+          // $(document).find('#tasks').html(data);
+          $('#email').val('');
+          var response = jQuery.parseJSON(data);
+          alert(response.message);
+        },
+        error: function(data) {
+          var error = jQuery.parseJSON(data.responseText);
+          alert(error.message);
+        }
+      });
+    }
   });
 });

@@ -105,15 +105,20 @@ class HomeController extends Controller
         $task_user->task_id = $req->task_id;
         $task_user->save();
 
-        session()->flash('success', 'Tarea compartida con el usuario '.$req->email.'.');
+        die(json_encode(array('message' => 'Tarea compartida con el usuario '.$req->email.'.', 'code' => 200)));
+        return redirect('home');
+        // $tasks = User::find(Auth::user()->id)->tasks()->orderBy('created_at', 'desc')->paginate(6);
+        // return view('tasks', ['tasks' => $tasks]);
+        // session()->flash('success', 'Tarea compartida con el usuario '.$req->email.'.');
       }
       else
       {
-        session()->flash('error', 'Ya se ha compartido la tarea con el usuario  '.$req->email.'.');
+        header('HTTP/1.1 500 Internal Server Error');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'Ya se ha compartido la tarea con el usuario '.$req->email.'.', 'code' => 1337)));
+        // session()->flash('error', 'Ya se ha compartido la tarea con el usuario  '.$req->email.'.');
       }
-
-
-      return redirect('home');
+      // return redirect('home');
     }
 
     public function getDone($id)
