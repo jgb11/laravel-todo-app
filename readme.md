@@ -1,3 +1,18 @@
+# To-Do App Laravel 5
+
+Aplicación básica de tareas (to-do's) hecha en Laravel 5.
+
+Características de la aplicación:
+
+- CRUD (Leer, crear, editar y borrar) de tareas
+- Laravel login
+- Compartir tareas entre usuarios
+- Traducciones en español e inglés
+
+Prerrequisitos:
+
+- Tener instalado [XAMPP](https://www.apachefriends.org/es/index.html)
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
